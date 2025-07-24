@@ -2,7 +2,7 @@
 """
 Created on Sat Nov  4 14:13:38 2017
 
-@author: NishitP
+@author: Aakash
 
 Note: before we can train an algorithm to classify fake news labels, we need to extract features from it. It means reducing the mass
 of unstructured data into some uniform set of attributes that an algorithm can understand. For fake news detection, it could be 
@@ -47,6 +47,30 @@ def get_countVectorizer_stats():
 #tf-idf 
 tfidfV = TfidfTransformer()
 train_tfidf = tfidfV.fit_transform(train_count)
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import classification_report
+import joblib
+
+# Labels (you may have to change this depending on DataPrep output)
+y = DataPrep.train_news['Label']  # Make sure this exists
+
+# Split into train/test
+X_train, X_test, y_train, y_test = train_test_split(train_tfidf, y, test_size=0.25, random_state=42)
+
+# Train Random Forest
+rf = RandomForestClassifier(n_estimators=100, random_state=42)
+rf.fit(X_train, y_train)
+
+# Evaluate
+print("🔄 RF Accuracy:", rf.score(X_test, y_test))
+print(classification_report(y_test, rf.predict(X_test)))
+
+# Save model and vectorizer
+joblib.dump(rf, 'rf_model.pkl')
+joblib.dump(tfidfV, 'tfidf.pkl')
+joblib.dump(countV, 'countvectorizer.pkl')  # Save countV too
+
 
 def get_tfidf_stats():
     train_tfidf.shape

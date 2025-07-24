@@ -1,0 +1,1 @@
+train_count = countV.fit_transform(DataPrep.train_news['Statement'].values)

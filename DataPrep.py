@@ -18,13 +18,15 @@ import seaborn as sb
 #reading data files 
 
 
-test_filename = 'test.csv'
-train_filename = 'train.csv'
-valid_filename = 'valid.csv'
+train_filename = r'C:\Users\aakas\OneDrive\Desktop\fake news detection\Fake_News_Detection\train.csv'
+test_filename = r'C:\Users\aakas\OneDrive\Desktop\fake news detection\Fake_News_Detection\test.csv'
+valid_filename = r'C:\Users\aakas\OneDrive\Desktop\fake news detection\Fake_News_Detection\valid.csv'
+
 
 train_news = pd.read_csv(train_filename)
 test_news = pd.read_csv(test_filename)
 valid_news = pd.read_csv(valid_filename)
+
 
 
 
